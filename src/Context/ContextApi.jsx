@@ -1,28 +1,17 @@
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, } from "react"
 
 const ContextApi = createContext();
+import useTasks from "../hooks/useTasks";
 
 const { VITE_API_URL } = import.meta.env;
 
 function ContextApiProvider({ children }) {
 
-    // creo var di stato per gione task
-    const [tasks, setTasks] = useState([]);
+    const taskData = useTasks();
 
-    useEffect(() => {
-        fetch(`${VITE_API_URL}/tasks`)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                // salvo i dati nello stato
-                setTasks(data);
-            })
-            .catch(error => console.error(error))
-            .finally();
-
-    }, [])
     return (
-        <ContextApi.Provider value={{ tasks, setTasks }}>
+        // utilizzo spread operator per non elencare tutti i valori manualmente
+        <ContextApi.Provider value={{ ...taskData }}>
             {children}
         </ContextApi.Provider>
     );

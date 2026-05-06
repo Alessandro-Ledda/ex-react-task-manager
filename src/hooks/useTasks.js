@@ -4,7 +4,7 @@ const { VITE_API_URL } = import.meta.env;
 
 function useTasks() {
 
-    const [tasks, setTasks] = usestate([]);
+    const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
         fetch(`${VITE_API_URL}/tasks`)
@@ -26,3 +26,5 @@ function useTasks() {
 
     return { tasks, addTask, removeTask, updateTask }
 };
+
+export default useTasks;
