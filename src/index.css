@@ -1,0 +1,12 @@
+/* classi css per row tabelle */
+td.todo {
+    background-color: red;
+}
+
+td.doing {
+    background-color: yellow;
+}
+
+td.done {
+    background-color: green;
+}

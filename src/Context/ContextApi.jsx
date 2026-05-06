@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react"
 
 const ContextApi = createContext();
 
-const endPoint = import.meta.env.VITE_API_URL;
+const { VITE_API_URL } = import.meta.env;
 
 function ContextApiProvider({ children }) {
 
@@ -10,7 +10,7 @@ function ContextApiProvider({ children }) {
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
-        fetch(endPoint)
+        fetch(`${VITE_API_URL}/tasks`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -22,7 +22,7 @@ function ContextApiProvider({ children }) {
 
     }, [])
     return (
-        <ContextApi.Provider value={{ tasks }}>
+        <ContextApi.Provider value={{ tasks, setTasks }}>
             {children}
         </ContextApi.Provider>
     );
@@ -36,4 +36,4 @@ function useContextApi() {
 }
 
 // export provider e hook
-export { ContextApiProvider, useContextApi }
+export { ContextApi, ContextApiProvider, useContextApi }

@@ -9,18 +9,18 @@ function App() {
 
 
   return (
-    <BrowserRouter>
-      <ContextApiProvider>
+    <ContextApiProvider>
+      <BrowserRouter>
         <nav>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/addTask">Aggiungi Task</NavLink>
+          <NavLink to="/">Tasks</NavLink>
+          <NavLink to="/addtask">Aggiungi Task</NavLink>
         </nav>
         <Routes>
           <Route path="/" element={<TaskList />}></Route>
           <Route path="/addtask" element={<AddTask />}></Route>
         </Routes>
-      </ContextApiProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ContextApiProvider>
   )
 }
 
