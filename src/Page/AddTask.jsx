@@ -1,8 +1,12 @@
-import { useRef, useState, useMemo } from 'react';
+import { useRef, useState, useMemo, useContext } from 'react';
+import { ContextApi } from '../Context/ContextApi';
 
 const symbols = '!"£$%&/()=?^?\'[]{}@#*+-_.:,;<|>\\|~°§';
 
 function AddTask() {
+
+    // richiamo il context per utilizzare addTAsk
+    const { addTask } = useContext(ContextApi);
 
     //setto var di stato per giostione nome form (controllato) 
     const [taskTitle, setTaskTitle] = useState("");
@@ -25,7 +29,7 @@ function AddTask() {
 
     }, [taskTitle]);
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         // controllo aggiuntivo
         if (taskTitleError)
@@ -37,7 +41,18 @@ function AddTask() {
             status: statusRef.current.value
         }
 
-        console.log('task da aggiungere', newTask);
+        // console.log('task da aggiungere', newTask);
+        try {
+            await addTask(newTask);
+            alert("task creata con successo")
+            // pulizia form
+            setTaskTitle("");
+            descriptionRef.current.value = "";
+            statusRef.current.value = "";
+        } catch (error) {
+            console.error(error)
+            alert(error.message);
+        }
     }
 
     return (
