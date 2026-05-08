@@ -1,11 +1,12 @@
-import { useParams, } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ContextApi } from "../Context/ContextApi";
 
 function TaskDetail() {
 
     const { id } = useParams();
-    const { tasks } = useContext(ContextApi);
+    const { tasks, removeTask } = useContext(ContextApi);
+    const navigate = useNavigate();
 
     // devo cercare l'id del task che corrisponde a quello intercettato di usePArams(task cliccata da user)
     const task = tasks.find(task => task.id === parseInt(id));
@@ -17,8 +18,16 @@ function TaskDetail() {
         )
     }
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         console.log("task eliminata con id:", task.id);
+        try {
+            await removeTask(task.id);
+            alert("task eliminata con successo");
+            navigate("/");
+        } catch (error) {
+            console.error(error);
+            alert(error.message);
+        }
     }
 
     return (

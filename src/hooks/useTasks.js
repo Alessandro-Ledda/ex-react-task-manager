@@ -38,7 +38,7 @@ function useTasks() {
         const { success, message } = await res.json();
         if (!success) throw new Error(message);
 
-        setTasks((prev) => prev.filter(task => task !== taskId));
+        setTasks((prev) => prev.filter(task => task.id !== taskId));
     }
 
     //updateTask
