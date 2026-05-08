@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { Link } from "react-router-dom";
 
 // memoizzando avverra il render sole se task verra sostituito 
 const TasksRow = memo(({ task }) => {
@@ -9,7 +10,7 @@ const TasksRow = memo(({ task }) => {
 
     return (
         <tr>
-            <td>{task.title}</td>
+            <td><Link to={`/task/${task.id}`}>{task.title}</Link></td>
             <td className={classStatus}>{task.status}</td>
             <td>{new Date(task.createdAt).toLocaleDateString()}</td>
         </tr>

@@ -30,7 +30,16 @@ function useTasks() {
     }
 
     // removeTask
-    const removeTask = (taskId) => { }
+    const removeTask = async (taskId) => {
+        const res = await fetch(`${VITE_API_URL}/tasks/${taskId}`, {
+            method: 'DELETE'
+        });
+
+        const { success, message } = await res.json();
+        if (!success) throw new Error(message);
+
+        setTasks((prev) => prev.filter(task => task !== taskId));
+    }
 
     //updateTask
     const updateTask = (taskId) => { }
