@@ -19,7 +19,7 @@ function useTasks() {
     const addTask = async newTask => {
         const res = await fetch(`${VITE_API_URL}/tasks`, {
             method: 'POST',
-            headers: { "content-Type": "application/json" },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newTask)
         });
 
@@ -42,7 +42,18 @@ function useTasks() {
     }
 
     //updateTask
-    const updateTask = (taskId) => { }
+    const updateTask = async (updateTask) => {
+        const res = await fetch(`${VITE_API_URL}/tasks/${updateTask.id}`, {
+            method: 'PUT',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updateTask)
+        });
+
+        const { success, message, task: newTask } = await res.json();
+        if (!success) throw new Error(message);
+
+        setTasks(prev => prev.map((oldTask) => oldTask.id === newTask.id ? newTask : oldTask));
+    }
 
     return { tasks, addTask, removeTask, updateTask }
 };
