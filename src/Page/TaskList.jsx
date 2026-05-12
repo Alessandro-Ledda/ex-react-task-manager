@@ -19,7 +19,7 @@ function debounce(callback, delay) {
 
 function TaskList() {
 
-    const { tasks } = useContext(ContextApi);
+    const { tasks, removeMultipleTasks } = useContext(ContextApi);
 
     // creo var di stato per l'ordimanto in base a... con data come riferimento iniziale 
     const [sortBy, setSortBy] = useState('createAt');
@@ -33,6 +33,31 @@ function TaskList() {
 
     // creo var per gestione icona ordine 
     const sortIcon = sortOrder === 1 ? '⇩' : '⇧';
+
+    // var do stato per gestione check task selezionato
+    const [selectedTaskIds, setSelectedTaskIds] = useState([]);
+
+    const toggleSelection = taskId => {
+        if (selectedTaskIds.includes(taskId)) {
+            setSelectedTaskIds(prev => prev.filter(id => id !== taskId));
+        } else {
+            setSelectedTaskIds(prev => [...prev, taskId]);
+        }
+    }
+
+    // creo funzione per deletemultipli
+    const handleDelete = async () => {
+        try {
+            await removeMultipleTasks(selectedTaskIds);
+            alert("task eliminata con successo");
+            // ripuliamo stato
+            setSelectedTaskIds([]);
+        } catch (error) {
+            console.error(error);
+            alert(error.message);
+        }
+
+    }
 
     // creao funzione che verifica a quale campo corrisponde dopo il onClick
     const handleSort = (field) => {
@@ -80,9 +105,21 @@ function TaskList() {
                 // value={searchTask}
                 onChange={(e) => debounceSearch(e.target.value)}
             />
+
+            {/* stampo risultati checcati */}
+            {/* <p>{selectedTaskIds.join(",")}</p> */}
+
+            {/* creo bottone, visibile se viene checcato almeno una task */}
+            {selectedTaskIds.length > 0 && (
+                <button onClick={handleDelete}
+                >
+                    Elemina task selezionati</button>
+            )}
+
             <table>
                 <thead>
                     <tr>
+                        <th></th>
                         <th onClick={() => handleSort('title')}>
                             Nome {sortBy === 'title' && sortIcon}</th>
                         <th onClick={() => handleSort('status')}>
@@ -93,7 +130,12 @@ function TaskList() {
                 </thead>
                 <tbody>
                     {filteredAndsortedTask.map((task) => {
-                        return <TasksRow key={task.id} task={task} />
+                        return <TasksRow
+                            key={task.id}
+                            task={task}
+                            checked={selectedTaskIds.includes(task.id)}
+                            onToggle={toggleSelection}
+                        />
                     })}
                 </tbody>
             </table>
