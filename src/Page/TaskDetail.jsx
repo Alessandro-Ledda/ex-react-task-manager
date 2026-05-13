@@ -3,8 +3,7 @@ import { useContext, useState } from "react";
 import { ContextApi } from "../Context/ContextApi";
 import Modal from "../components/Modal";
 import EditTaskModal from "../components/EditTaskModal";
-import { Dayjs } from "dayjs";
-
+import dayjs from "dayjs";
 function TaskDetail() {
 
     const { id } = useParams();

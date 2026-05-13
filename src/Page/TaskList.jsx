@@ -20,6 +20,8 @@ function debounce(callback, delay) {
 function TaskList() {
 
     const { tasks, removeMultipleTasks } = useContext(ContextApi);
+    // console.log("DEBUG TASKS:", tasks, "TYPE:", typeof tasks, "IS_ARRAY:", Array.isArray(tasks));
+
 
     // creo var di stato per l'ordimanto in base a... con data come riferimento iniziale 
     const [sortBy, setSortBy] = useState('createAt');
