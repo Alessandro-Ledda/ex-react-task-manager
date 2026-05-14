@@ -6,8 +6,8 @@ function Modal({ title, content, show, onClose, onConfirm, confirmText = "Confer
     return createPortal(
         <div className="modal-overlay">
             <div className="modal">
-                <h2>{title}</h2>
-                {content}
+                <h2 className="modal-title">{title}</h2>
+                <div className="content">{content}</div>
                 <div className="modal-actions">
                     <button onClick={onClose}>Annulla</button>
                     <button onClick={onConfirm}>{confirmText}</button>

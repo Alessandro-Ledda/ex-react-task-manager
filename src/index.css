@@ -1,3 +1,46 @@
+/* reset style link */
+a {
+    text-decoration: none;
+    font-size: 20px;
+}
+
+/* style header */
+nav {
+    background-color: cadetblue;
+    height: 50px;
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+button {
+    padding: 7px 10px;
+    border-radius: 5%;
+    background-color: cadetblue;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+/* style input */
+input {
+    display: block;
+    padding: 10px 15px;
+}
+
+/* style table */
+
+table {
+    margin-top: 30px;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+}
+
+
 /* classi css per row tabelle */
 td.todo {
     background-color: red;
@@ -9,4 +52,47 @@ td.doing {
 
 td.done {
     background-color: green;
+}
+
+/* style modal */
+.modal-overlay {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(128, 128, 128, 0.5);
+}
+
+.modal {
+    position: relative;
+    width: 500px;
+    margin: 30px auto;
+    border: 1px solid black;
+    background-color: white;
+    border: none;
+}
+
+.modal-action {
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* style modal overlay */
+.modal-title,
+.content,
+button {
+    margin-left: 30px;
+}
+
+select,
+label,
+textarea {
+    display: block;
+}
+
+label {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: ;
 }
